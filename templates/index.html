@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Price Prediction</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="img"></div>
+<h1 class="title">House Price Prediction</h1>
+<div class="form">
+<form  action="{{ url_for('predict') }}" method="POST">
+    <label class="loc">LOCATION</label>
+    <select class="location" name="sLocation" id="uiLocation" required=1>
+        {% for location in locations%}
+        <!-- <option value="{{location}}">{{location}}</option> -->
+        <option {% if result and location == input_json['location'] %}selected{% endif %}>{{ location }}</option>
+        {% endfor %}
+    </select>
+	<label class="sqft">AREA</label>
+    <input class="area"  type="number" id="uiSqft" class="floatLabel" name="Squareft" value="1000" placeholder="Enter Area (sqft)" min="1000" max="50000">
+	<label class="bhk">BHK</label>
+	<input type="number" class='area'id="uiBHK" name="uiBHK" placeholder="Enter BHK">
+	<label class="bath">BATHROOMS</label>
+	<input type="number" class='area' id="uiBathrooms" name="uiBathrooms" placeholder="Enter Bathrooms" >
+	<button class="submit">ESTIMATE</button>
+</form>
+	<div id="uiEstimatedPrice" class="result"><h2><span>{{result}}</span></h2></div>
+</div>
+</body>
+</html>
